@@ -2,14 +2,14 @@
 
 import {Pen} from "lucide-react";
 
-import {usePrimaryColor} from "./primary-provider";
+import {Button} from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import {Button} from "./ui/button";
+} from "@/components/ui/dropdown-menu";
+import {usePrimaryColor} from "./primary-provider";
 
 const PrimaryToggle = () => {
   const {setPrimaryColor} = usePrimaryColor();

@@ -28,7 +28,7 @@ export async function uploadToCloudinary(files: File[]) {
   const newFiles = await savePhotosToLocal(files);
   const multiplePhotosPromise = newFiles.map((file) =>
     cloudinary.v2.uploader.upload(file.filepath, {
-      folder: "nextjs",
+      folder: "online-book-store",
     })
   );
   const results = await Promise.all(multiplePhotosPromise);

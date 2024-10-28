@@ -3,8 +3,8 @@ import {redirect} from "next/navigation";
 import {getUser} from "@/actions/userActions";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 
-import UserDetails from "../_components/user-details";
-import UpdateUserForm from "../_components/update-user-form";
+import UserDetails from "./_components/user-details";
+import UpdateUserForm from "./_components/update-user-form";
 
 export const metadata = {
   title: "Profile",

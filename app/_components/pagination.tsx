@@ -43,7 +43,7 @@ const Pagination = ({page, totalPages, urlParamName}: PaginationProps) => {
       <Button
         size="lg"
         variant="outline"
-        className={`w-28 bg-${primaryColor}-700 hover:bg-${primaryColor}-800 disabled:bg-${primaryColor}-300`}
+        className={`w-28 bg-${primaryColor}-700 hover:bg-${primaryColor}-800 disabled:bg-${primaryColor}-300 text-white`}
         onClick={() => onClick("prev")}
         disabled={Number(page) <= 1}
       >
@@ -55,7 +55,7 @@ const Pagination = ({page, totalPages, urlParamName}: PaginationProps) => {
           className={`${
             page === i + 1
               ? `bg-${primaryColor}-700 hover:bg-${primaryColor}-800`
-              : "text-black"
+              : "text-white"
           }`}
         >
           {i + 1}
@@ -64,7 +64,7 @@ const Pagination = ({page, totalPages, urlParamName}: PaginationProps) => {
       <Button
         size="lg"
         variant="outline"
-        className={`w-28 bg-${primaryColor}-700 hover:bg-${primaryColor}-800 disabled:bg-${primaryColor}-300`}
+        className={`w-28 bg-${primaryColor}-700 hover:bg-${primaryColor}-800 disabled:bg-${primaryColor}-300 text-white`}
         onClick={() => onClick("next")}
         disabled={Number(page) >= totalPages}
       >

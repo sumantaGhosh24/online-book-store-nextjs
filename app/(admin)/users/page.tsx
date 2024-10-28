@@ -1,7 +1,7 @@
 import {getUsers} from "@/actions/userActions";
 import SearchBar from "@/app/_components/search-bar";
 
-import Users from "../_components/users";
+import Users from "./_components/users";
 
 export const metadata = {
   title: "Manage Users",

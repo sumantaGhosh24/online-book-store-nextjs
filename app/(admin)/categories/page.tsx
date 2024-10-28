@@ -1,11 +1,56 @@
+import Link from "next/link";
+
+import {getAllCategories} from "@/actions/categoryActions";
+import {cn} from "@/lib/utils";
+import {buttonVariants} from "@/components/ui/button";
+import SearchBar from "@/app/_components/search-bar";
+
+import ManageCategories from "./_components/manage-categories";
+
 export const metadata = {
   title: "Manage Categories",
 };
 
-export default function ManageCategoriesPage() {
+interface ManageCategoriesProps {
+  searchParams: {[key: string]: string | string[] | undefined};
+}
+
+export default async function ManageCategoriesPage({
+  searchParams,
+}: ManageCategoriesProps) {
+  const page = Number(searchParams?.page) || 1;
+  const searchText = (searchParams?.query as string) || "";
+
+  const categories = await getAllCategories({
+    searchString: searchText,
+    pageNumber: page,
+    pageSize: 5,
+  });
+
   return (
-    <div>
-      <h1>Categories</h1>
+    <div className="mx-auto my-20 w-[95%] rounded p-8 shadow shadow-black dark:shadow-white">
+      <div className="flex justify-between">
+        <div className="mb-8 text-left">
+          <h2 className="mb-4 text-3xl font-bold">Manage Categories</h2>
+          <p className="text-gray-600">Admin manage all categories.</p>
+        </div>
+        <Link
+          href="/categories/create"
+          className={cn(buttonVariants(), "bg-blue-700 hover:bg-blue-800")}
+        >
+          Create Category
+        </Link>
+      </div>
+      <div className="mb-8">
+        <SearchBar placeholder="Search categories" />
+      </div>
+      <ManageCategories
+        data={categories?.data}
+        emptyTitle="No category found"
+        emptyStateSubtext="Try again later"
+        page={page}
+        totalPages={categories?.totalPages}
+      />
     </div>
   );
 }

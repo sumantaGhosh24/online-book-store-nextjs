@@ -1,11 +1,29 @@
+import {redirect} from "next/navigation";
+
+import {getCategory} from "@/actions/categoryActions";
+
+import UpdateCategoryForm from "../../_components/update-category-form";
+
 export const metadata = {
   title: "Update Category",
 };
 
-export default function UpdateCategoryPage() {
+interface UpdateCategoryProps {
+  params: {id: string};
+}
+
+export default async function UpdateCategoryPage({
+  params,
+}: UpdateCategoryProps) {
+  const category = await getCategory(params.id);
+
+  if (!category) redirect("/categories");
+
   return (
-    <div>
-      <h1>UpdateCategory</h1>
+    <div className="my-20 flex h-[80vh] w-full items-center justify-center">
+      <div className="min-w-[60%] space-y-4 rounded-lg p-5 shadow-lg shadow-black dark:shadow-white">
+        <UpdateCategoryForm category={JSON.parse(JSON.stringify(category))} />
+      </div>
     </div>
   );
 }

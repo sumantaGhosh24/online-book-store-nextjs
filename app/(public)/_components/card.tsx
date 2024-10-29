@@ -29,14 +29,14 @@ const Card = ({book}: CardProps) => {
           className="mb-4 h-40 w-full rounded-md object-cover transition-transform hover:scale-105"
         />
       </Link>
-      <div className="mb-4 flex gap-2">
+      <div className="mb-4 flex flex-wrap gap-2">
         <Badge
           className={`max-w-fit bg-${primaryColor}-700 hover:bg-${primaryColor}-800 text-white`}
         >
           ₹ {book.price}
         </Badge>
         <Badge
-          className={`max-w-fit bg-${primaryColor}-700 hover:bg-${primaryColor}-800 text-white`}
+          className={`max-w-fit bg-${primaryColor}-700 hover:bg-${primaryColor}-800 text-white line-through`}
         >
           ₹ {book.mrp}
         </Badge>

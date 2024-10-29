@@ -17,7 +17,7 @@ interface BookDetailProps {
 const BookDetails = ({book}: BookDetailProps) => {
   return (
     <div className="my-10 flex w-full items-center justify-center">
-      <div className="max-w-[95%] space-y-4 rounded-lg p-5 shadow-lg shadow-black dark:shadow-white">
+      <div className="w-[95%] space-y-4 rounded-lg p-5 shadow-lg shadow-black dark:shadow-white">
         <div className="mb-5 md:mb-0">
           <h2 className="text-2xl font-bold capitalize">{book.title}</h2>
           <h3 className="mt-5 text-xl">{book.description}</h3>
@@ -47,17 +47,13 @@ const BookDetails = ({book}: BookDetailProps) => {
         <p className="text-base">{book.content}</p>
         <h4 className="flex gap-1 items-center">
           <span className="text-xl font-bold">Price:</span>
-          <span className="font-bold">
-            {book.price} / {book.mrp}
-          </span>
-          <span className="text-lg line-through">{book.price}</span>
+          <span className="font-bold">{book.price}</span>
+          <span className="text-lg line-through">{book.mrp}</span>
         </h4>
         <div className="flex gap-5">
           <div className="flex items-center gap-3 rounded border border-primary p-5">
-            <div>
-              <h4 className="mb-2">Category: </h4>
-              <h4>{book.category.name}</h4>
-            </div>
+            <h4>Category: </h4>
+            <h4>{book.category.name}</h4>
           </div>
           <div className="flex items-center gap-3 rounded border border-primary p-5">
             <Image
@@ -73,8 +69,10 @@ const BookDetails = ({book}: BookDetailProps) => {
             </div>
           </div>
         </div>
-        <h4>Created at: {new Date(book.createdAt).toLocaleDateString()}</h4>
-        <h4>Updated at: {new Date(book.updatedAt).toLocaleDateString()}</h4>
+        <div className="flex items-center justify-between">
+          <h4>Created at: {new Date(book.createdAt).toLocaleDateString()}</h4>
+          <h4>Updated at: {new Date(book.updatedAt).toLocaleDateString()}</h4>
+        </div>
       </div>
     </div>
   );

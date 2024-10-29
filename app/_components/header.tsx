@@ -67,7 +67,7 @@ const Header = ({user}: {user: any}) => {
                         <NavigationMenuTrigger>
                           <Avatar className="mr-2">
                             <AvatarImage src={user.image.url} />
-                            <AvatarFallback>
+                            <AvatarFallback className="uppercase">
                               {user.name.substring(0, 2)}
                             </AvatarFallback>
                           </Avatar>

@@ -1,3 +1,5 @@
+import Script from "next/script";
+
 export default function UserLayout({
   children,
 }: Readonly<{
@@ -6,6 +8,7 @@ export default function UserLayout({
   return (
     <>
       <div>{children}</div>
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" />
     </>
   );
 }

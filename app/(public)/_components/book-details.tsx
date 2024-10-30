@@ -1,5 +1,13 @@
 "use client";
 
+import {useState} from "react";
+import Image from "next/image";
+import toast from "react-hot-toast";
+import {ShoppingCart} from "lucide-react";
+
+import {addCart} from "@/actions/cartActions";
+import {IBook} from "@/models/bookModel";
+import {Button} from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
@@ -7,14 +15,30 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import {IBook} from "@/models/bookModel";
-import Image from "next/image";
+import {usePrimaryColor} from "@/app/_components/primary-provider";
 
 interface BookDetailProps {
   book: IBook;
 }
 
 const BookDetails = ({book}: BookDetailProps) => {
+  const [loading, setLoading] = useState(false);
+
+  const {primaryColor} = usePrimaryColor();
+
+  const addToCart = async () => {
+    setLoading(true);
+    try {
+      await addCart({bookId: book._id, quantity: 1, path: "/cart"});
+
+      toast.success("Product added to cart!");
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="my-10 flex w-full items-center justify-center">
       <div className="w-[95%] space-y-4 rounded-lg p-5 shadow-lg shadow-black dark:shadow-white">
@@ -50,6 +74,15 @@ const BookDetails = ({book}: BookDetailProps) => {
           <span className="font-bold">{book.price}</span>
           <span className="text-lg line-through">{book.mrp}</span>
         </h4>
+        <Button
+          type="button"
+          disabled={loading}
+          className={`max-w-fit bg-${primaryColor}-700 hover:bg-${primaryColor}-800 disabled:bg-${primaryColor}-300`}
+          onClick={() => addToCart()}
+        >
+          <ShoppingCart />
+          {loading ? "Processing..." : "Add Cart"}
+        </Button>
         <div className="flex gap-5">
           <div className="flex items-center gap-3 rounded border border-primary p-5">
             <h4>Category: </h4>

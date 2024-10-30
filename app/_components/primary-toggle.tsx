@@ -9,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import {usePrimaryColor} from "./primary-provider";
 
 const PrimaryToggle = () => {

@@ -1,11 +1,44 @@
+import {redirect} from "next/navigation";
+
+import getServerUser from "@/actions/getServerUser";
+import {getUserOrders} from "@/actions/orderActions";
+import ManageOrders from "@/app/_components/manage-orders";
+
 export const metadata = {
   title: "My Orders",
 };
 
-export default function MyOrdersPage() {
+interface MyOrdersPageProps {
+  searchParams: {[key: string]: string | string[] | undefined};
+}
+
+export default async function MyOrdersPage({searchParams}: MyOrdersPageProps) {
+  const page = Number(searchParams?.page) || 1;
+
+  const user = await getServerUser();
+
+  if (!user) redirect("/");
+
+  const orders = await getUserOrders({
+    pageNumber: page,
+    pageSize: 10,
+    user: user._id,
+  });
+
   return (
-    <div>
-      <h1>MyOrders</h1>
+    <div className="mx-auto my-20 w-[95%] rounded p-8 shadow shadow-black dark:shadow-white">
+      <div className="mb-8 text-left">
+        <h2 className="mb-4 text-3xl font-bold">Manage My Orders</h2>
+        <p className="text-gray-600">Admin manage my orders.</p>
+      </div>
+      <ManageOrders
+        data={orders?.data}
+        emptyTitle="No my orders found"
+        emptyStateSubtext="Try again later"
+        page={page}
+        totalPages={orders?.totalPages}
+        user={user}
+      />
     </div>
   );
 }

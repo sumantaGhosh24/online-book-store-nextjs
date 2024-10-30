@@ -6,7 +6,6 @@ import Image from "next/image";
 import {signOut} from "next-auth/react";
 import {Menu, X} from "lucide-react";
 
-import {ModeToggle} from "./mode-toggle";
 import {Button} from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -18,6 +17,8 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+
+import {ModeToggle} from "./mode-toggle";
 import PrimaryToggle from "./primary-toggle";
 
 const Header = ({user}: {user: any}) => {
@@ -128,7 +129,7 @@ const Header = ({user}: {user: any}) => {
                                 {
                                   id: 1,
                                   name: "Dashboard",
-                                  url: "/authors",
+                                  url: "/dashboard",
                                 },
                                 {
                                   id: 2,

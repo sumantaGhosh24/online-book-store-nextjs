@@ -9,7 +9,6 @@ import {dynamicBlurDataUrl} from "@/lib/utils";
 import BookModel from "@/models/bookModel";
 import CategoryModel from "@/models/categoryModel";
 import AuthorModel from "@/models/authorModel";
-import UserModel from "@/models/userModel";
 
 import getServerUser from "./getServerUser";
 

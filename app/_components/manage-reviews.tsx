@@ -19,7 +19,7 @@ import {
 import {usePrimaryColor} from "./primary-provider";
 import Pagination from "./pagination";
 
-type ReviewProps = {
+interface ManageReviewsProps {
   data: IReview[];
   emptyTitle: string;
   emptyStateSubtext: string;
@@ -27,7 +27,7 @@ type ReviewProps = {
   totalPages?: number;
   urlParamName?: string;
   user: any;
-};
+}
 
 const ManageReviews = ({
   data,
@@ -37,7 +37,7 @@ const ManageReviews = ({
   totalPages = 0,
   urlParamName,
   user,
-}: ReviewProps) => {
+}: ManageReviewsProps) => {
   const {primaryColor} = usePrimaryColor();
 
   return (

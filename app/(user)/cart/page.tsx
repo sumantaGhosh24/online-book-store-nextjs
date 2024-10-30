@@ -1,7 +1,7 @@
 import {getCart} from "@/actions/cartActions";
 
-import Checkout from "../_components/checkout";
-import ManageCart from "../_components/manage-cart";
+import Checkout from "./_components/checkout";
+import ManageCart from "./_components/manage-cart";
 
 export const metadata = {
   title: "Cart",

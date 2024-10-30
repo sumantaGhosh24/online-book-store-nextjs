@@ -4,9 +4,7 @@ import Image from "next/image";
 import {useRouter} from "next/navigation";
 import {Pen} from "lucide-react";
 
-import DialogProvider from "@/app/_components/dialog-provider";
-import Pagination from "@/app/_components/pagination";
-import {usePrimaryColor} from "@/app/_components/primary-provider";
+import {IAuthor} from "@/models/authorModel";
 import {Button} from "@/components/ui/button";
 import {
   Table,
@@ -17,7 +15,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {IAuthor} from "@/models/authorModel";
+import DialogProvider from "@/app/_components/dialog-provider";
+import Pagination from "@/app/_components/pagination";
+import {usePrimaryColor} from "@/app/_components/primary-provider";
 
 import DeleteAuthor from "./delete-author";
 

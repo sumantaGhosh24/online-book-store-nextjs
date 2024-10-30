@@ -15,3 +15,12 @@ export const CreateOrderValidation = z.object({
     .trim()
     .toLowerCase(),
 });
+
+export const UpdateOrderValidation = z.object({
+  orderStatus: z
+    .string()
+    .min(1, {message: "Order status is required"})
+    .trim()
+    .toLowerCase(),
+  deliverAt: z.date(),
+});

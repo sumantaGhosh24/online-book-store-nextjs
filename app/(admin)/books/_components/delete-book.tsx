@@ -3,9 +3,10 @@
 import {useState} from "react";
 import toast from "react-hot-toast";
 import {Trash} from "lucide-react";
+
 import {deleteBook} from "@/actions/bookActions";
-import DialogProvider from "@/app/_components/dialog-provider";
 import {Button} from "@/components/ui/button";
+import DialogProvider from "@/app/_components/dialog-provider";
 
 interface DeleteBookProps {
   id: string;

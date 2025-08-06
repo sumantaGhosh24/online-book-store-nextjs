@@ -7,7 +7,6 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import toast from "react-hot-toast";
 
-import {RAZORPAY_KEY} from "@/lib/config";
 import {formatFloatingNumber, getSum} from "@/lib/utils";
 import {CreateOrderValidation} from "@/validations/order";
 import {ICart} from "@/models/cartModel";
@@ -104,7 +103,7 @@ const Checkout = ({cart}: CheckoutProps) => {
       });
       const order = await data.json();
       const options = {
-        key: RAZORPAY_KEY,
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
         name: "Book Sports Ticket",
         description: "Book your favorite match ticket.",
         currency: order.order.currency,

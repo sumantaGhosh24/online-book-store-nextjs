@@ -25,57 +25,20 @@ export interface IUser extends Document {
 
 const UserSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    username: {
-      type: String,
-      required: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    mobileNumber: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    image: {
-      url: String,
-      public_id: String,
-    },
-    dob: {
-      type: String,
-    },
-    gender: {
-      type: String,
-    },
-    city: {
-      type: String,
-    },
-    state: {
-      type: String,
-    },
-    country: {
-      type: String,
-    },
-    zip: {
-      type: String,
-    },
-    addressline: {
-      type: String,
-    },
-    role: {
-      type: String,
-      default: "user",
-    },
+    name: {type: String, required: true},
+    email: {type: String, required: true, unique: true},
+    username: {type: String, required: true},
+    password: {type: String, required: true},
+    mobileNumber: {type: String, required: true, trim: true},
+    image: {url: String, public_id: String},
+    dob: {type: String},
+    gender: {type: String},
+    city: {type: String},
+    state: {type: String},
+    country: {type: String},
+    zip: {type: String},
+    addressline: {type: String},
+    role: {type: String, default: "user"},
   },
   {timestamps: true}
 );

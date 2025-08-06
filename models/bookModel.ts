@@ -23,45 +23,14 @@ export interface IBook extends Document {
 
 const BookSchema = new Schema(
   {
-    title: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    content: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    image: [
-      {
-        url: String,
-        public_id: String,
-        blurHash: String,
-      },
-    ],
-    category: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      ref: "Category",
-    },
-    author: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      ref: "Author",
-    },
-    price: {
-      type: String,
-      required: true,
-    },
-    mrp: {
-      type: String,
-      required: true,
-    },
+    title: {type: String, required: true},
+    description: {type: String, required: true, trim: true},
+    content: {type: String, required: true, trim: true},
+    image: [{url: String, public_id: String, blurHash: String}],
+    category: {type: Schema.Types.ObjectId, required: true, ref: "Category"},
+    author: {type: Schema.Types.ObjectId, required: true, ref: "Author"},
+    price: {type: String, required: true},
+    mrp: {type: String, required: true},
   },
   {timestamps: true}
 );

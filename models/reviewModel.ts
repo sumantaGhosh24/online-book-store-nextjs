@@ -15,24 +15,10 @@ export interface IReview extends Document {
 
 const ReviewSchema = new Schema(
   {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    book: {
-      type: Schema.Types.ObjectId,
-      ref: "Book",
-      required: true,
-    },
-    comment: {
-      type: String,
-      required: true,
-    },
-    rating: {
-      type: Number,
-      required: true,
-    },
+    user: {type: Schema.Types.ObjectId, ref: "User", required: true},
+    book: {type: Schema.Types.ObjectId, ref: "Book", required: true},
+    comment: {type: String, required: true},
+    rating: {type: Number, required: true},
   },
   {timestamps: true}
 );

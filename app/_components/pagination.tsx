@@ -55,8 +55,8 @@ const Pagination = ({page, totalPages, urlParamName}: PaginationProps) => {
           onClick={() => handleClick(i + 1)}
           className={`${
             page === i + 1
-              ? `bg-${primaryColor}-700 hover:bg-${primaryColor}-800`
-              : "text-white"
+              ? `bg-${primaryColor}-700 hover:bg-${primaryColor}-800 dark:text-white`
+              : "text-white dark:text-black"
           }`}
         >
           {i + 1}

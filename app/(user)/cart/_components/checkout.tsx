@@ -45,20 +45,22 @@ const Checkout = ({cart}: CheckoutProps) => {
   });
 
   const calculatePrice = () => {
-    let prices = [];
-    let taxPrices = [];
-    let shippingPrices = [];
-    let totalPrices = [];
+    const prices = [];
+    const taxPrices = [];
+    const shippingPrices = [];
+    const totalPrices = [];
     for (let i = 0; i < cart.books.length; i++) {
       prices.push(cart.books[i].price);
       taxPrices.push(cart.books[i].taxPrice);
       shippingPrices.push(cart.books[i].shippingPrice);
       totalPrices.push(cart.books[i].totalPrice);
     }
-    let price = formatFloatingNumber(prices.reduce(getSum, 0));
-    let taxPrice = formatFloatingNumber(taxPrices.reduce(getSum, 0));
-    let shippingPrice = formatFloatingNumber(shippingPrices.reduce(getSum, 0));
-    let totalPrice = formatFloatingNumber(totalPrices.reduce(getSum, 0));
+    const price = formatFloatingNumber(prices.reduce(getSum, 0));
+    const taxPrice = formatFloatingNumber(taxPrices.reduce(getSum, 0));
+    const shippingPrice = formatFloatingNumber(
+      shippingPrices.reduce(getSum, 0)
+    );
+    const totalPrice = formatFloatingNumber(totalPrices.reduce(getSum, 0));
 
     return {price, taxPrice, shippingPrice, totalPrice};
   };
@@ -69,26 +71,26 @@ const Checkout = ({cart}: CheckoutProps) => {
     const {city, state, country, zip, address} = values;
 
     try {
-      let prices = [];
-      let taxPrices = [];
-      let shippingPrices = [];
-      let totalPrices = [];
+      const prices = [];
+      const taxPrices = [];
+      const shippingPrices = [];
+      const totalPrices = [];
       for (let i = 0; i < cart.books.length; i++) {
         prices.push(cart.books[i].price);
         taxPrices.push(cart.books[i].taxPrice);
         shippingPrices.push(cart.books[i].shippingPrice);
         totalPrices.push(cart.books[i].totalPrice);
       }
-      let price = formatFloatingNumber(prices.reduce(getSum, 0));
-      let taxPrice = formatFloatingNumber(taxPrices.reduce(getSum, 0));
-      let shippingPrice = formatFloatingNumber(
+      const price = formatFloatingNumber(prices.reduce(getSum, 0));
+      const taxPrice = formatFloatingNumber(taxPrices.reduce(getSum, 0));
+      const shippingPrice = formatFloatingNumber(
         shippingPrices.reduce(getSum, 0)
       );
-      let totalPrice = formatFloatingNumber(totalPrices.reduce(getSum, 0));
+      const totalPrice = formatFloatingNumber(totalPrices.reduce(getSum, 0));
 
       const orderItems: any[] = [];
       for (let i = 0; i < cart?.books?.length; i++) {
-        let newObj = {
+        const newObj = {
           book: cart?.books[i]?.book._id,
           quantity: cart?.books[i]?.quantity,
         };
@@ -142,6 +144,8 @@ const Checkout = ({cart}: CheckoutProps) => {
           }
         },
       };
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       const paymentObject = new window.Razorpay(options);
       paymentObject.open();
       paymentObject.on("payment.failed", function () {
@@ -157,129 +161,96 @@ const Checkout = ({cart}: CheckoutProps) => {
   };
 
   return (
-    <section className="p-6 shadow-xl rounded-xl w-full">
+    <section className="p-6 shadow-md rounded-md w-full dark:shadow-gray-400">
       <Form {...form}>
         <form
-          className="flex flex-col justify-start gap-10"
           onSubmit={form.handleSubmit(onSubmit)}
+          className="grid md:grid-cols-3 gap-8"
         >
-          <h1 className="text-3xl font-bold capitalize">Checkout</h1>
-          <div className="flex items-center gap-5">
-            <p className="text-lg font-bold">
-              Price:{" "}
-              <span className="font-medium">{calculatePrice().price}</span>
-            </p>
-            <p className="text-lg font-bold">
-              Tax Price:{" "}
-              <span className="font-medium">{calculatePrice().taxPrice}</span>
-            </p>
-            <p className="text-lg font-bold">
-              Shipping Price:{" "}
-              <span className="font-medium">
-                {calculatePrice().shippingPrice}
-              </span>
-            </p>
-            <p className="text-lg font-bold">
-              Total Price:{" "}
-              <span className="font-medium">{calculatePrice().totalPrice}</span>
-            </p>
-          </div>
-          <div className="flex flex-col md:flex-row gap-2">
-            <FormField
-              control={form.control}
-              name="city"
-              render={({field}) => (
-                <FormItem className="flex w-full flex-col gap-3">
-                  <FormLabel className="text-base font-semibold">
-                    City
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      className="bg-gray-200 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 text-black"
-                      placeholder="Enter your city"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="state"
-              render={({field}) => (
-                <FormItem className="flex w-full flex-col gap-3">
-                  <FormLabel className="text-base font-semibold">
-                    State
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      className="bg-gray-200 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 text-black"
-                      placeholder="Enter your state"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="flex flex-col md:flex-row gap-2">
-            <FormField
-              control={form.control}
-              name="country"
-              render={({field}) => (
-                <FormItem className="flex w-full flex-col gap-3">
-                  <FormLabel className="text-base font-semibold">
-                    Country
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      className="bg-gray-200 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 text-black"
-                      placeholder="Enter your country"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="zip"
-              render={({field}) => (
-                <FormItem className="flex w-full flex-col gap-3">
-                  <FormLabel className="text-base font-semibold">Zip</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      className="bg-gray-200 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 text-black"
-                      placeholder="Enter your zip"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="flex flex-col md:flex-row gap-2">
+          <div className="md:col-span-2 space-y-6 border rounded-xl p-6 shadow-sm">
+            <h1 className="text-3xl font-bold">Checkout</h1>
+            <div className="grid md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="city"
+                render={({field}) => (
+                  <FormItem>
+                    <FormLabel className="font-semibold">City</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your city"
+                        className="bg-gray-100 dark:bg-neutral-800"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="state"
+                render={({field}) => (
+                  <FormItem>
+                    <FormLabel className="font-semibold">State</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your state"
+                        className="bg-gray-100 dark:bg-neutral-800"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="country"
+                render={({field}) => (
+                  <FormItem>
+                    <FormLabel className="font-semibold">Country</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your country"
+                        className="bg-gray-100 dark:bg-neutral-800"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="zip"
+                render={({field}) => (
+                  <FormItem>
+                    <FormLabel className="font-semibold">Zip Code</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your zip"
+                        className="bg-gray-100 dark:bg-neutral-800"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             <FormField
               control={form.control}
               name="address"
               render={({field}) => (
-                <FormItem className="flex w-full flex-col gap-3">
-                  <FormLabel className="text-base font-semibold">
-                    Address
-                  </FormLabel>
+                <FormItem>
+                  <FormLabel className="font-semibold">Address</FormLabel>
                   <FormControl>
                     <Input
-                      type="text"
-                      className="bg-gray-200 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 text-black"
-                      placeholder="Enter your address"
+                      placeholder="Enter your full address"
+                      className="bg-gray-100 dark:bg-neutral-800"
                       {...field}
                     />
                   </FormControl>
@@ -288,13 +259,32 @@ const Checkout = ({cart}: CheckoutProps) => {
               )}
             />
           </div>
-          <Button
-            type="submit"
-            disabled={loading}
-            className={`max-w-fit bg-${primaryColor}-700 hover:bg-${primaryColor}-800 disabled:bg-${primaryColor}-300`}
-          >
-            {loading ? "Processing..." : "Checkout"}
-          </Button>
+          <div className="border rounded-xl p-6 h-fit shadow-sm space-y-4">
+            <h2 className="text-xl font-semibold">Order Summary</h2>
+            <div className="flex justify-between text-sm">
+              <span>Price</span>
+              <span>{calculatePrice().price}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span>Tax</span>
+              <span>{calculatePrice().taxPrice}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span>Shipping</span>
+              <span>{calculatePrice().shippingPrice}</span>
+            </div>
+            <div className="border-t pt-3 flex justify-between font-semibold text-lg">
+              <span>Total</span>
+              <span>{calculatePrice().totalPrice}</span>
+            </div>
+            <Button
+              type="submit"
+              disabled={loading}
+              className={`w-full mt-4 bg-${primaryColor}-700 hover:bg-${primaryColor}-800 disabled:bg-${primaryColor}-300`}
+            >
+              {loading ? "Processing..." : "Place Order"}
+            </Button>
+          </div>
         </form>
       </Form>
     </section>

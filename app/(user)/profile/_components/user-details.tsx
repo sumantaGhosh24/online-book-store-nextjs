@@ -4,55 +4,68 @@ import Image from "next/image";
 
 import {IUser} from "@/models/userModel";
 import {Badge} from "@/components/ui/badge";
-import {usePrimaryColor} from "@/app/_components/primary-provider";
 
 interface UserDetailsProps {
   user: IUser;
 }
 
 const UserDetails = ({user}: UserDetailsProps) => {
-  const {primaryColor} = usePrimaryColor();
-
   return (
-    <div className="my-10 flex w-full items-center justify-center">
-      <div className="w-[95%] space-y-4 rounded-lg p-5 shadow-lg shadow-black dark:shadow-white">
-        <h1 className="mb-5 text-3xl font-bold">Your Details</h1>
-        <div className="mb-5 md:mb-0">
-          <h2 className="text-2xl font-bold capitalize">{user.name}</h2>
-          <h3 className="mt-5 text-xl">{user.username}</h3>
+    <div className="container mx-auto py-10">
+      <div className="rounded-md border p-8 shadow-md dark:shadow-gray-400">
+        <div className="flex flex-col items-center gap-4 pb-6">
+          {user.image && (
+            <Image
+              src={user.image.url}
+              alt={user.image.public_id}
+              width={140}
+              height={140}
+              className="rounded-full object-cover border"
+            />
+          )}
+          <div className="text-center">
+            <h1 className="text-3xl font-bold capitalize">{user.name}</h1>
+            <p className="text-muted-foreground">@{user.username}</p>
+          </div>
+          {user.role === "admin" && (
+            <Badge className="px-3 py-1 text-sm bg-primary text-white dark:text-black">
+              ADMIN
+            </Badge>
+          )}
         </div>
-        {user.image && (
-          <Image
-            src={user.image.url}
-            alt={user.image.public_id}
-            height={350}
-            width={500}
-            className="h-[350px] w-[60%] rounded"
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
+          <ProfileItem label="Email" value={user.email} />
+          <ProfileItem label="Mobile Number" value={user.mobileNumber} />
+          <ProfileItem
+            label="Date of Birth"
+            value={new Date(user.dob).toLocaleDateString()}
           />
-        )}
-        <h4 className="font-bold">Email: {user.email}</h4>
-        <h4 className="font-bold">Mobile number: {user.mobileNumber}</h4>
-        <h4 className="capitalize font-bold">
-          DOB: {new Date(user.dob).toLocaleDateString()}
-        </h4>
-        <h4 className="capitalize font-bold">Gender: {user.gender}</h4>
-        <h4 className="capitalize font-bold">City: {user.city}</h4>
-        <h4 className="capitalize font-bold">State: {user.state}</h4>
-        <h4 className="capitalize font-bold">Country: {user.country}</h4>
-        <h4 className="capitalize font-bold">Zip: {user.zip}</h4>
-        <h4 className="capitalize font-bold">
-          Addressline: {user.addressline}
-        </h4>
-        <h4 className="font-bold">
-          Created at: {new Date(user.createdAt).toLocaleDateString()}
-        </h4>
-        <h4 className="font-bold">
-          Updated at: {new Date(user.updatedAt).toLocaleDateString()}
-        </h4>
-        {user.role === "admin" && (
-          <Badge className={`bg-${primaryColor}-700 text-white`}>ADMIN</Badge>
-        )}
+          <ProfileItem label="Gender" value={user.gender} />
+          <ProfileItem label="City" value={user.city} />
+          <ProfileItem label="State" value={user.state} />
+          <ProfileItem label="Country" value={user.country} />
+          <ProfileItem label="Zip Code" value={user.zip} />
+          <ProfileItem label="Address" value={user.addressline} />
+        </div>
+        <div className="mt-8 pt-4 text-sm text-muted-foreground flex items-center justify-between">
+          <p>Created: {new Date(user.createdAt).toLocaleDateString()}</p>
+          <p>Updated: {new Date(user.updatedAt).toLocaleDateString()}</p>
+        </div>
       </div>
+    </div>
+  );
+};
+
+interface ProfileItemProps {
+  label: string;
+  value?: string | number;
+}
+
+const ProfileItem = ({label, value}: ProfileItemProps) => {
+  return (
+    <div className="rounded-lg border p-4">
+      <p className="text-sm text-muted-foreground">{label}</p>
+      <p className="font-semibold capitalize">{value || "-"}</p>
     </div>
   );
 };

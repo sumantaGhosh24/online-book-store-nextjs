@@ -19,9 +19,10 @@ import {usePrimaryColor} from "@/app/_components/primary-provider";
 
 interface BookDetailProps {
   book: IBook;
+  user?: any;
 }
 
-const BookDetails = ({book}: BookDetailProps) => {
+const BookDetails = ({book, user}: BookDetailProps) => {
   const [loading, setLoading] = useState(false);
 
   const {primaryColor} = usePrimaryColor();
@@ -40,13 +41,9 @@ const BookDetails = ({book}: BookDetailProps) => {
   };
 
   return (
-    <div className="my-10 flex w-full items-center justify-center">
-      <div className="w-[95%] space-y-4 rounded-lg p-5 shadow-lg shadow-black dark:shadow-white">
-        <div className="mb-5 md:mb-0">
-          <h2 className="text-2xl font-bold capitalize">{book.title}</h2>
-          <h3 className="mt-5 text-xl">{book.description}</h3>
-        </div>
-        <div className="mx-auto w-[90%]">
+    <div className="container mx-auto my-10 space-y-4 rounded-md p-5 shadow-md dark:shadow-gray-400">
+      <div className="grid md:grid-cols-2 gap-10">
+        <div className="w-full">
           <Carousel>
             <CarouselContent>
               {book.image.map((img: any) => (
@@ -54,9 +51,9 @@ const BookDetails = ({book}: BookDetailProps) => {
                   <Image
                     src={img.url}
                     alt={img.public_id}
-                    height={200}
+                    height={400}
                     width={500}
-                    className="h-[350px] w-full rounded"
+                    className="h-[420px] w-full rounded-xl object-cover"
                     placeholder="blur"
                     blurDataURL={img.blurHash}
                     priority
@@ -68,44 +65,73 @@ const BookDetails = ({book}: BookDetailProps) => {
             <CarouselNext />
           </Carousel>
         </div>
-        <p className="text-base">{book.content}</p>
-        <h4 className="flex gap-1 items-center">
-          <span className="text-xl font-bold">Price:</span>
-          <span className="font-bold">{book.price}</span>
-          <span className="text-lg line-through">{book.mrp}</span>
-        </h4>
-        <Button
-          type="button"
-          disabled={loading}
-          className={`max-w-fit bg-${primaryColor}-700 hover:bg-${primaryColor}-800 disabled:bg-${primaryColor}-300`}
-          onClick={() => addToCart()}
-        >
-          <ShoppingCart />
-          {loading ? "Processing..." : "Add Cart"}
-        </Button>
-        <div className="flex gap-5">
-          <div className="flex items-center gap-3 rounded border border-primary p-5">
-            <h4>Category: </h4>
-            <h4>{book.category.name}</h4>
+        <div className="flex flex-col gap-6">
+          <div>
+            <h1 className="text-4xl font-bold mb-3">{book.title}</h1>
+            <p className="text-gray-600 dark:text-gray-300">
+              {book.description}
+            </p>
           </div>
-          <div className="flex items-center gap-3 rounded border border-primary p-5">
-            <Image
-              src={book.author.image.url}
-              alt={book.author.image.public_id}
-              height={100}
-              width={100}
-              className="rounded"
-            />
-            <div>
-              <h4 className="mb-2">Author: </h4>
-              <h4>{book.author.name}</h4>
+          <div className="flex items-center gap-4">
+            <span className={`text-3xl font-bold text-${primaryColor}-500`}>
+              ₹{book.price}
+            </span>
+            <span className="text-xl text-gray-500 line-through">
+              ₹{book.mrp}
+            </span>
+            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-md text-sm font-semibold">
+              {Math.round(
+                ((parseInt(book.mrp) - parseInt(book.price)) /
+                  parseInt(book.mrp)) *
+                  100
+              )}
+              % OFF
+            </span>
+          </div>
+          {user && (
+            <Button
+              type="button"
+              disabled={loading}
+              className={`w-fit flex items-center gap-2 text-white bg-${primaryColor}-700 hover:bg-${primaryColor}-800 disabled:bg-${primaryColor}-300`}
+              onClick={() => addToCart()}
+            >
+              <ShoppingCart size={18} />
+              {loading ? "Adding..." : "Add to Cart"}
+            </Button>
+          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="border rounded-lg p-4 flex items-center gap-3">
+              <div>
+                <p className="text-sm text-gray-500">Category</p>
+                <p className="font-semibold">{book.category.name}</p>
+              </div>
+            </div>
+            <div className="border rounded-lg p-4 flex items-center gap-3">
+              <Image
+                src={book.author.image.url}
+                alt={book.author.image.public_id}
+                height={50}
+                width={50}
+                className="rounded-full"
+              />
+              <div>
+                <p className="text-sm text-gray-500">Author</p>
+                <p className="font-semibold">{book.author.name}</p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-between">
-          <h4>Created at: {new Date(book.createdAt).toLocaleDateString()}</h4>
-          <h4>Updated at: {new Date(book.updatedAt).toLocaleDateString()}</h4>
-        </div>
+      </div>
+      <div className="my-10 border-t"></div>
+      <div>
+        <h2 className="text-2xl font-bold mb-4">About this book</h2>
+        <p className="leading-7 text-gray-700 dark:text-gray-300">
+          {book.content}
+        </p>
+      </div>
+      <div className="flex justify-between text-sm text-gray-500 mt-8">
+        <p>Created: {new Date(book.createdAt).toLocaleDateString()}</p>
+        <p>Updated: {new Date(book.updatedAt).toLocaleDateString()}</p>
       </div>
     </div>
   );

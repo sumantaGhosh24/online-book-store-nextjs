@@ -20,8 +20,8 @@ export default async function UpdateAuthorPage({
   if (!author) redirect("/authors");
 
   return (
-    <div className="my-20 flex h-[90vh] w-full items-center justify-center">
-      <div className="min-w-[60%] space-y-4 rounded-lg p-5 shadow-lg shadow-black dark:shadow-white">
+    <div className="my-10 flex h-[90vh] w-full items-center justify-center">
+      <div className="min-w-[60%] space-y-4 rounded-md p-5 shadow-md dark:shadow-gray-400">
         <UpdateAuthorForm author={JSON.parse(JSON.stringify(author))} />
       </div>
     </div>

@@ -37,8 +37,8 @@ export default async function BookDetailsPage({
 
   return (
     <>
-      <BookDetails book={book} />
-      <CreateReviewForm book={book} user={user} />
+      <BookDetails book={book} user={user} />
+      {user && <CreateReviewForm book={book} user={user} />}
       <BookReviews
         data={reviews?.data}
         emptyTitle="No review found"

@@ -33,26 +33,24 @@ export default async function HomePage({searchParams}: HomeProps) {
   const authors = await getAuthors();
 
   return (
-    <>
-      <div className="my-5 p-8">
-        <div className="mb-8 text-left">
-          <h2 className="mb-4 text-3xl font-bold">All Books</h2>
-          <p className="text-gray-600">Explore all books.</p>
-        </div>
-        <div className="mb-8 flex w-full flex-col gap-5 md:flex-row">
-          <SearchBar placeholder="Search books" />
-          <Filter categories={categories} authors={authors} />
-        </div>
-        <div>
-          <Books
-            data={books?.data}
-            emptyTitle="No Books Found"
-            emptyStateSubtext="Try again later"
-            page={page}
-            totalPages={books?.totalPages}
-          />
-        </div>
+    <div className="my-5 p-8 container mx-auto">
+      <div className="mb-8 text-left">
+        <h2 className="mb-4 text-3xl font-bold">All Books</h2>
+        <p className="text-gray-600">Explore all books.</p>
       </div>
-    </>
+      <div className="mb-8 flex w-full flex-col gap-5 md:flex-row">
+        <SearchBar placeholder="Search books" />
+        <Filter categories={categories} authors={authors} />
+      </div>
+      <div>
+        <Books
+          data={books?.data}
+          emptyTitle="No Books Found"
+          emptyStateSubtext="Try again later"
+          page={page}
+          totalPages={books?.totalPages}
+        />
+      </div>
+    </div>
   );
 }

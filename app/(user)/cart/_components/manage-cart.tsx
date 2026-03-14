@@ -1,7 +1,7 @@
 "use client";
 
 import {useState} from "react";
-import {Trash} from "lucide-react";
+import {Trash, ShoppingCart} from "lucide-react";
 import toast from "react-hot-toast";
 
 import {clearCart} from "@/actions/cartActions";
@@ -36,25 +36,40 @@ const ManageCart = ({cart}: ManageCartProps) => {
     }
   };
 
+  const totalItems = cart?.books?.length || 0;
+
   return (
-    <section className="p-6 shadow-xl rounded-xl w-full">
-      <h1 className="text-3xl font-bold capitalize mb-10">My Cart</h1>
+    <section className="p-6 shadow-md rounded-md w-full dark:shadow-gray-400 space-y-8">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <ShoppingCart size={26} />
+          <h1 className="text-3xl font-bold">My Cart</h1>
+        </div>
+        {totalItems > 0 && (
+          <Button
+            type="button"
+            disabled={loading}
+            variant="destructive"
+            onClick={handleClearCart}
+            className="flex items-center gap-2"
+          >
+            <Trash size={16} />
+            Clear Cart
+          </Button>
+        )}
+      </div>
       {cart && cart.books && cart.books.length > 0 ? (
-        <div className="relative overflow-x-auto mt-10">
+        <div className="border rounded-xl p-6">
           <Table>
-            <TableCaption>A list of books in your cart.</TableCaption>
+            <TableCaption>Your selected books.</TableCaption>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">No</TableHead>
+                <TableHead>No</TableHead>
                 <TableHead>Book</TableHead>
-                <TableHead>Decrement</TableHead>
-                <TableHead>Quantity</TableHead>
-                <TableHead>Increment</TableHead>
-                <TableHead>Remove</TableHead>
+                <TableHead>Qty</TableHead>
                 <TableHead>Price</TableHead>
-                <TableHead>Tax Price</TableHead>
-                <TableHead>Shipping Price</TableHead>
-                <TableHead>Total Price</TableHead>
+                <TableHead>Total</TableHead>
+                <TableHead>Remove</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -63,19 +78,16 @@ const ManageCart = ({cart}: ManageCartProps) => {
               ))}
             </TableBody>
           </Table>
-          <Button
-            type="button"
-            disabled={loading}
-            className="bg-red-700 hover:bg-red-800 disabled:bg-red-300"
-            onClick={handleClearCart}
-          >
-            <Trash /> Clear Cart
-          </Button>
         </div>
       ) : (
-        <h3 className="text-xl capitalize mb-10">
-          Your cart is empty, add a book to see your cart.
-        </h3>
+        <div className="flex flex-col items-center justify-center border rounded-xl p-12 text-center space-y-4">
+          <ShoppingCart size={40} className="text-muted-foreground" />
+          <h3 className="text-xl font-semibold">Your cart is empty</h3>
+          <p className="text-muted-foreground">
+            Add some books to start shopping.
+          </p>
+          <Button>Browse Books</Button>
+        </div>
       )}
     </section>
   );

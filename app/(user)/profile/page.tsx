@@ -16,7 +16,7 @@ export default async function ProfilePage() {
 
   return (
     <>
-      <Tabs defaultValue="profile-details" className="w-full">
+      <Tabs defaultValue="profile-details" className="w-full container mx-auto">
         <TabsList className="mx-10 mt-10 grid grid-cols-2">
           <TabsTrigger value="profile-details">Profile Details</TabsTrigger>
           <TabsTrigger value="update-profile">Update Profile</TabsTrigger>

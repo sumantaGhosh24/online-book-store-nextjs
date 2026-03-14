@@ -115,7 +115,7 @@ const UpdateAuthorForm = ({author}: UpdateAuthorFormProps) => {
             alt={author.image.public_id}
             height={200}
             width={500}
-            className="mb-5 w-full"
+            className="mb-5 w-full h-[300px]"
           />
         )}
         <div className="flex items-center gap-4">

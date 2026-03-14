@@ -16,7 +16,7 @@ const Card = ({book}: CardProps) => {
   const {primaryColor} = usePrimaryColor();
 
   return (
-    <div className="relative overflow-hidden rounded-lg bg-white p-4 shadow-md dark:bg-black shadow-black dark:shadow-white">
+    <div className="relative overflow-hidden rounded-md p-4 shadow-md dark:shadow-gray-400">
       <Link href={`/book/${book._id}`}>
         <Image
           src={book.image[0].url}
@@ -53,7 +53,7 @@ const Card = ({book}: CardProps) => {
       </div>
       <Link href={`/book/${book._id}`}>
         <p className="mb-2 text-xl font-bold capitalize">{book.title}</p>
-        <p className="mb-2 text-sm font-bold capitalize">{book.description}</p>
+        <p className="mb-2 text-sm font-medium">{book.description}</p>
       </Link>
     </div>
   );

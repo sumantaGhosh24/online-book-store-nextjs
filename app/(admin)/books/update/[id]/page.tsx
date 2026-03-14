@@ -28,7 +28,7 @@ export default async function UpdateBookPage({params}: UpdateBookPageProps) {
 
   return (
     <>
-      <Tabs defaultValue="update-book" className="w-full">
+      <Tabs defaultValue="update-book" className="w-full container mx-auto">
         <TabsList className="mx-10 mt-10 grid grid-cols-3">
           <TabsTrigger value="update-book">Update Book</TabsTrigger>
           <TabsTrigger value="add-image">Add Book Image</TabsTrigger>
